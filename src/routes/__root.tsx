@@ -1,3 +1,6 @@
+import '@fontsource-variable/inter';
+import '@fontsource/abel';
+import '@fontsource-variable/roboto-mono';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 import type { QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools';
@@ -42,6 +45,20 @@ export const Route = createRootRouteWithContext<{
 					rel: 'stylesheet',
 					href: brandCss,
 				},
+				{
+					rel: 'apple-touch-icon',
+					sizes: '180x180',
+					href: '/apple-touch-icon.png',
+				},
+				{
+					rel: 'icon',
+					type: 'image/svg+xml',
+					sizes: 'any',
+					href: '/favicon.svg',
+				},
+				{ rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+				{ rel: 'manifest', href: '/manifest.json', color: '#fffff' },
+				{ rel: 'icon', href: '/favicon.ico' },
 			],
 		};
 	},

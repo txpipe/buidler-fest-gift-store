@@ -9,6 +9,7 @@ export const brandConfig: BrandConfig = {
 			locale: 'en_US',
 			url: 'https://shop.buidlerfest.com',
 		},
+		ogImage: '/og-image.png',
 		twitterCard: {
 			card: 'summary_large_image',
 		},
@@ -20,7 +21,7 @@ export const brandConfig: BrandConfig = {
 		},
 	},
 	business: {
-		name: 'TxPipe',
+		name: 'Buidler Fest',
 	},
 	features: {
 		enableShipping: false,

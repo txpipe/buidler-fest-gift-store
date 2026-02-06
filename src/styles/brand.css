@@ -12,11 +12,11 @@
 
 	/* Brand identity */
 	--brand-logo-url: "/logo.png";
-	--brand-name: "Mi E-commerce";
+	--brand-name: "Buidler Fest Gift Store";
 }
 
 /* Additional CSS variables for white-label */
 :root {
 	--brand-logo-url: "/logo.png";
-	--brand-name: "Mi E-commerce";
+	--brand-name: "Buidler Fest Gift Store";
 }

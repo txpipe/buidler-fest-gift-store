@@ -14,6 +14,12 @@ importers:
       '@fontsource-variable/inter':
         specifier: ^5.2.8
         version: 5.2.8
+      '@fontsource-variable/roboto-mono':
+        specifier: ^5.2.8
+        version: 5.2.8
+      '@fontsource/abel':
+        specifier: ^5.2.7
+        version: 5.2.7
       '@noble/curves':
         specifier: ^2.0.1
         version: 2.0.1
@@ -646,6 +652,12 @@ packages:
 
   '@fontsource-variable/inter@5.2.8':
     resolution: {integrity: sha512-kOfP2D+ykbcX/P3IFnokOhVRNoTozo5/JxhAIVYLpea/UBmCQ/YWPBfWIDuBImXX/15KH+eKh4xpEUyS2sQQGQ==}
+
+  '@fontsource-variable/roboto-mono@5.2.8':
+    resolution: {integrity: sha512-6M2U3wGIUxYNKRrUoKls8BRRIPDA57T8J0agqwyDkiEHrLEEAqptsxcUl3eTm6tnRNEn6yEm4pCefvtnujebDA==}
+
+  '@fontsource/abel@5.2.7':
+    resolution: {integrity: sha512-C4iyv0u8xPN9+PVyi/NWTqHZREh6L7Q7yewuD22W35gK8BHyn2qZ9oGweYbo71+ZuTogQA1SmAQdWAdcqQ/7lg==}
 
   '@hono/node-server@1.19.8':
     resolution: {integrity: sha512-0/g2lIOPzX8f3vzW1ggQgvG5mjtFBDBHFAzI5SFAi2DzSqS9luJwqg9T6O/gKYLi+inS7eNxBeIFkkghIPvrMA==}
@@ -4769,6 +4781,10 @@ snapshots:
   '@floating-ui/utils@0.2.10': {}
 
   '@fontsource-variable/inter@5.2.8': {}
+
+  '@fontsource-variable/roboto-mono@5.2.8': {}
+
+  '@fontsource/abel@5.2.7': {}
 
   '@hono/node-server@1.19.8(hono@4.11.3)':
     dependencies:

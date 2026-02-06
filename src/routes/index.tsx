@@ -25,6 +25,17 @@ export const Route = createFileRoute('/')({
 	},
 });
 
+function HeroComponent() {
+	return (
+		<section>
+			<div className="container mx-auto text-center">
+				<img src="/buidler-shop.svg" alt={`${brandConfig.business.name} logo`} className="mx-auto w-67.5 h-62.75" />
+				<p className="text-lg text-white mt-6">Lorem Ipsum Lorem Ipsum</p>
+			</div>
+		</section>
+	)
+}
+
 function HomePage() {
 	const { addItem, getItemQuantity } = useCart();
 	const disableProductsPage = brandConfig.features.disableProductsPage;
@@ -49,16 +60,11 @@ function HomePage() {
 
 	if (isLoading) {
 		return (
-			<div className="min-h-screen">
-				<section className="bg-linear-to-r from-primary to-primary/80 text-primary-foreground py-20">
-					<div className="container mx-auto px-4 text-center">
-						<h1 className="text-4xl md:text-6xl font-bold mb-6">Welcome to Our Store</h1>
-						<p className="text-xl md:text-2xl mb-8 opacity-90">Discover amazing products at great prices</p>
-					</div>
-				</section>
-				<section className="py-16">
+			<div className="min-h-screen bg-[#012347] py-14">
+				<HeroComponent />
+				<section className="mt-14 mb-3.5">
 					<div className="container mx-auto px-4">
-						<div className="text-center">Loading featured products...</div>
+						<div className="text-center text-white">Loading products...</div>
 					</div>
 				</section>
 			</div>
@@ -67,16 +73,11 @@ function HomePage() {
 
 	if (error) {
 		return (
-			<div className="min-h-screen">
-				<section className="bg-linear-to-r from-primary to-primary/80 text-primary-foreground py-20">
-					<div className="container mx-auto px-4 text-center">
-						<h1 className="text-4xl md:text-6xl font-bold mb-6">Welcome to Our Store</h1>
-						<p className="text-xl md:text-2xl mb-8 opacity-90">Discover amazing products at great prices</p>
-					</div>
-				</section>
-				<section className="py-16">
+			<div className="min-h-screen bg-[#012347] py-14">
+				<HeroComponent />
+				<section className="mt-14 mb-3.5">
 					<div className="container mx-auto px-4">
-						<div className="text-center text-red-500">Failed to load featured products</div>
+						<div className="text-center text-red-500">Failed to load products</div>
 					</div>
 				</section>
 			</div>
@@ -84,27 +85,13 @@ function HomePage() {
 	}
 
 	return (
-		<div className="min-h-screen">
+		<div className="min-h-screen bg-[#012347] py-14">
 			{/* Hero Section */}
-			<section className="bg-linear-to-r from-primary to-primary/80 text-primary-foreground py-20">
-				<div className="container mx-auto px-4 text-center">
-					<h1 className="text-4xl md:text-6xl font-bold mb-6">Welcome to Our Store</h1>
-					<p className="text-xl md:text-2xl mb-8 opacity-90">Discover amazing products at great prices</p>
-					{!disableProductsPage && (
-						<Link
-							to="/products"
-							className="inline-block px-8 py-3 bg-primary-foreground text-primary rounded-lg font-semibold hover:bg-primary-foreground/90 transition-colors"
-						>
-							Shop Now
-						</Link>
-					)}
-				</div>
-			</section>
+			<HeroComponent />
 
 			{/* Featured Products Section */}
-			<section className="py-16">
+			<section className="mt-14 mb-3.5">
 				<div className="container mx-auto px-4">
-					<h2 className="text-3xl font-bold text-center mb-12">Featured Products</h2>
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 						{featuredProducts.map(product => (
 							<ProductCard

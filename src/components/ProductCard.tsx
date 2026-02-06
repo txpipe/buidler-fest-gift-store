@@ -47,9 +47,9 @@ export function ProductCard({
 	const isDetailDisabled = brandConfig.features.disableProductDetailPage;
 
 	const cardContent = (
-		<div className="border rounded-lg p-4 hover:shadow-lg transition-shadow duration-300">
+		<div className="border rounded-3xl p-6 hover:shadow-lg transition-shadow duration-300 bg-white/12 border-white/25">
 			{/* Product Image */}
-			<div className="w-full h-48 bg-gray-100 rounded-lg mb-4 flex items-center justify-center group-hover:bg-gray-50 transition-colors overflow-hidden">
+			<div className="w-full h-48 bg-gray-100 rounded-3xl mb-8 flex items-center justify-center group-hover:bg-gray-50 transition-colors overflow-hidden">
 				{productImage.startsWith('http') ? (
 					<img
 						src={productImage}
@@ -64,15 +64,15 @@ export function ProductCard({
 			</div>
 
 			{/* Product Info */}
-			<h3 className="font-semibold mb-2 text-gray-900 group-hover:text-primary transition-colors">{product.name}</h3>
+			<h3 className="font-semibold text-2xl mb-2 text-white transition-colors">{product.name}</h3>
 
-			{product.description && <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.description}</p>}
+			{product.description && <p className="text-white/80 mb-5 line-clamp-2">{product.description}</p>}
 
 			{variant === 'detailed' && (
 				<>
 					{/* Price and Stock */}
 					<div className="flex justify-between items-center mb-3">
-						<span className="font-bold text-lg text-gray-900">{priceString}</span>
+						<span className="font-bold text-lg text-white">{priceString}</span>
 						<span className={`text-xs font-medium ${isInStock ? 'text-green-600' : 'text-red-600'}`}>
 							{isInStock ? `${product.stock} in stock` : 'Out of stock'}
 						</span>
@@ -82,18 +82,19 @@ export function ProductCard({
 
 			{variant === 'simple' && (
 				<div className="flex justify-between items-center">
-					<span className="font-bold">{priceString}</span>
+					<span className="font-abel font-semibold text-[#FEED7B]">{priceString}</span>
 					{isSelectAction ? (
 						<button
 							type="button"
 							onClick={handleAddToCart}
 							disabled={isSelectDisabled}
-							className="px-3 py-1 bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+							// /* background: linear-gradient(95.17deg, #3280D4 14.86%, #8EC4FF 151.92%); */
+							className="px-5 py-2 bg-linear-95 from-[#3280D4] from-15% to-[#8EC4FF] to-151% rounded-full text-white hover:text-white/70 transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed font-mono"
 						>
-							Select
+							SELECT
 						</button>
 					) : (
-						<span className="px-3 py-1 bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors text-sm">
+						<span className="px-3 py-1 bg-primary rounded text-white transition-colors text-sm">
 							View
 						</span>
 					)}
