@@ -30,6 +30,9 @@ declare interface BrandConfig {
 	};
 	features: {
 		enableShipping: boolean;
+		disableProductsPage: boolean;
+		disableProductDetailPage: boolean;
+		disableCartFlow: boolean;
 	};
 }
 

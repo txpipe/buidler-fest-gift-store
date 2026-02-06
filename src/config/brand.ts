@@ -1,38 +1,31 @@
 export const brandConfig: BrandConfig = {
 	seo: {
-		title: 'My Cardano E-commerce',
-		description: 'Buy products with ADA and Cardano tokens',
-		ogImage: '/og-image.png',
-		twitterHandle: '@mycompany',
-		keywords: ['e-commerce', 'cardano', 'ada', 'crypto', 'shopping'],
+		title: 'Buidler Fest Shop',
+		description: 'Exchange your buidler reward token for exclusive merchandise and collectibles.',
+		keywords: ['buidlerfest', 'cardano', 'ada', 'crypto', 'shopping'],
 		openGraph: {
 			type: 'website',
-			siteName: 'My Cardano E-commerce',
+			siteName: 'Buidler Fest Shop',
 			locale: 'en_US',
-			url: 'https://my-ecommerce-cardano.com',
+			url: 'https://shop.buidlerfest.com',
 		},
 		twitterCard: {
 			card: 'summary_large_image',
-			site: '@mycompany',
-			creator: '@mycompany',
 		},
 	},
 	contact: {
-		email: 'contact@company.com',
-		phone: '+1 555 1234-5678',
-		whatsapp: '+155512345678',
+		email: 'hello@txpipe.io',
 		social: {
-			twitter: 'https://twitter.com/mycompany',
-			instagram: 'https://instagram.com/mycompany',
-			facebook: 'https://facebook.com/mycompany',
+			twitter: 'https://x.com/txpipe_tools',
 		},
 	},
 	business: {
-		name: 'My Company',
-		taxId: 'XX-XXXXXXXX-X',
-		address: '123 Main St, New York, NY 10001',
+		name: 'TxPipe',
 	},
 	features: {
 		enableShipping: false,
+		disableProductsPage: true,
+		disableProductDetailPage: true,
+		disableCartFlow: true,
 	},
 };
