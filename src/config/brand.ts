@@ -9,7 +9,7 @@ export const brandConfig: BrandConfig = {
 			locale: 'en_US',
 			url: 'https://shop.buidlerfest.com',
 		},
-		ogImage: '/og-image.png',
+		ogImage: '/tw-banner.png',
 		twitterCard: {
 			card: 'summary_large_image',
 		},
