@@ -33,7 +33,7 @@ function HeroComponent() {
 				<p className="text-lg text-white mt-6">Lorem Ipsum Lorem Ipsum</p>
 			</div>
 		</section>
-	)
+	);
 }
 
 function HomePage() {

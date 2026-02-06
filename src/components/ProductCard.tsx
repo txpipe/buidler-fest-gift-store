@@ -94,9 +94,7 @@ export function ProductCard({
 							SELECT
 						</button>
 					) : (
-						<span className="px-3 py-1 bg-primary rounded text-white transition-colors text-sm">
-							View
-						</span>
+						<span className="px-3 py-1 bg-primary rounded text-white transition-colors text-sm">View</span>
 					)}
 				</div>
 			)}
