@@ -1,0 +1,10 @@
+{
+  "name": "order-cleanup",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "dependencies": {},
+  "type": "module",
+  "imports": {
+    "@supabase/functions-js": "jsr:@supabase/functions-js@^2"
+  }
+}
