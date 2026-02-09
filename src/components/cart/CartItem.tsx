@@ -152,8 +152,8 @@ export function CartItem({ item, onQuantityChange, onRemove, compact = false }: 
 				)}
 
 				{/* Price and Quantity Controls */}
-				<div className="flex items-center justify-between">
-					<div>
+				<div className="flex items-center justify-end -mt-13">
+					{/* <div>
 						<p className={cn('text-sm', compact ? 'text-gray-400' : 'text-gray-600')}>
 							{formatPriceSyncById(item.product.price, item.product.token_id, {
 								supportedToken: item.product.supported_tokens,
@@ -165,7 +165,7 @@ export function CartItem({ item, onQuantityChange, onRemove, compact = false }: 
 								supportedToken: item.product.supported_tokens,
 							})}
 						</p>
-					</div>
+					</div> */}
 
 					<QuantitySelector
 						value={item.quantity}

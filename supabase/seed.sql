@@ -34,7 +34,28 @@ INSERT INTO products (
 INSERT INTO product_images (product_id, image_url, alt_text, display_order) 
 SELECT 
   id,
-  'https://xppdernnhjwbgdpygodo.supabase.co/storage/v1/object/public/product-images/mate.png',
+  'https://zmrcatuaoiyfwskpimgw.supabase.co/storage/v1/object/public/buidler-fest-gift/mate.png',
   'Mate image',
   0
 FROM products WHERE name = 'Mate';
+INSERT INTO product_images (product_id, image_url, alt_text, display_order) 
+SELECT 
+  id,
+  'https://zmrcatuaoiyfwskpimgw.supabase.co/storage/v1/object/public/buidler-fest-gift/power-bank.png',
+  'Power bank image',
+  0
+FROM products WHERE name = 'Power Bank';
+INSERT INTO product_images (product_id, image_url, alt_text, display_order) 
+SELECT 
+  id,
+  'https://zmrcatuaoiyfwskpimgw.supabase.co/storage/v1/object/public/buidler-fest-gift/buzo.png',
+  'Buzo image',
+  0
+FROM products WHERE name = 'Buzo';
+INSERT INTO product_images (product_id, image_url, alt_text, display_order) 
+SELECT 
+  id,
+  'https://zmrcatuaoiyfwskpimgw.supabase.co/storage/v1/object/public/buidler-fest-gift/botella.png',
+  'Botella image',
+  0
+FROM products WHERE name = 'Botella';

@@ -754,6 +754,21 @@ export const createOrdersServerFn = createServerFn({ method: 'POST' })
 					.select(
 						`
 						*,
+						order_items (
+							product_id,
+							quantity,
+							price,
+							token_id,
+							products:product_id (
+								name,
+								description,
+								product_images (
+									image_url,
+									alt_text,
+									display_order
+								)
+							)
+						),
 						supported_tokens (policy_id, asset_name, display_name, decimals)
 					`,
 					)

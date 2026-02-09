@@ -7,6 +7,7 @@ import { type CartItem, type CartStorage, clearCart, createEmptyCart, getCart, s
 interface CartContextType {
 	items: CartItem[];
 	addItem: (productId: string, quantity: number, product: CartItem['product']) => Promise<void>;
+	replaceWithItem: (productId: string, quantity: number, product: CartItem['product']) => Promise<void>;
 	removeItem: (productId: string) => Promise<void>;
 	updateQuantity: (productId: string, quantity: number) => Promise<void>;
 	updateProductStock: (productId: string, newStock: number) => Promise<void>;
@@ -117,6 +118,30 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 		await persistCart(currentItems);
 	};
 
+	const replaceWithItem = async (productId: string, quantity: number, product: CartItem['product']) => {
+		if (quantity <= 0) {
+			throw new Error('Quantity must be greater than 0');
+		}
+
+		if (!product) {
+			throw new Error('Product information required for offline cart');
+		}
+
+		if (quantity > product.stock) {
+			throw new Error(`Insufficient stock. Only ${product.stock} available.`);
+		}
+
+		const nextItem: CartItem = {
+			productId,
+			quantity,
+			addedAt: Date.now(),
+			product,
+			subtotal: quantity * product.price,
+		};
+
+		await persistCart([nextItem]);
+	};
+
 	const removeItem = async (productId: string) => {
 		const updatedItems = items.filter(item => item.productId !== productId);
 		await persistCart(updatedItems);
@@ -196,6 +221,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 			value={{
 				items,
 				addItem,
+				replaceWithItem,
 				removeItem,
 				updateQuantity,
 				updateProductStock,

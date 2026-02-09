@@ -1,5 +1,5 @@
 import { IconShoppingCart } from '@tabler/icons-react';
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 
 // Components
@@ -12,6 +12,7 @@ import { brandConfig } from '@/config/brand';
 import { useCart } from '@/hooks/use-cart';
 
 export default function Header() {
+	const navigate = useNavigate();
 	const [isMiniCartOpen, setIsMiniCartOpen] = useState(false);
 	const { itemCount } = useCart();
 	const { disableProductsPage, disableCartFlow } = brandConfig.features;
@@ -19,16 +20,16 @@ export default function Header() {
 	return (
 		<header className="sticky top-0 z-50 bg-white text-brand-primary shadow-xl border-b border-blue-500/30">
 			<div className="container mx-auto px-4">
-				<div className="flex items-center justify-between h-16">
+				<div className="flex items-center justify-between h-20">
 					{/* Left: Logo + Nav */}
 					<div className="flex items-center gap-6 lg:gap-8">
 						{/* Logo/Brand */}
 						<Link
 							to="/"
-							className="group flex items-center gap-2 lg:gap-3 text-lg lg:text-xl font-semibold text-brand-primary hover:opacity-20  transition-all duration-200"
+							className="group text-lg lg:text-xl font-semibold text-brand-primary hover:opacity-20 transition-all duration-200"
 						>
-							<div className="flex gap-3">
-								<span className="font-abel tracking-widest">{brandConfig.business.name.toUpperCase()} #3</span>
+							<div className="flex items-center gap-2 lg:gap-3">
+								<img className="sm:h-6 h-4" src="/buidler-fest-logo.svg" alt="Buidler Fest #3" />
 								<span className="w-0.5 self-stretch bg-brand-primary"></span>
 								<span>Gift store</span>
 							</div>
@@ -54,6 +55,7 @@ export default function Header() {
 							type="button"
 							onClick={() => {
 								if (disableCartFlow) {
+									navigate({ to: '/checkout' });
 									return;
 								}
 								setIsMiniCartOpen(!isMiniCartOpen);

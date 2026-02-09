@@ -1,9 +1,7 @@
 import { IconAlertCircle, IconMapPin } from '@tabler/icons-react';
-import { useNavigate } from '@tanstack/react-router';
 import { memo } from 'react';
 // Components
 import { CartItem } from '@/components/cart/CartItem';
-import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 // Config
 import { brandConfig } from '@/config/brand';
@@ -22,7 +20,6 @@ interface ReviewStepProps {
 }
 
 function ReviewStepComponent({ total, isLoading, onProceed }: ReviewStepProps) {
-	const navigate = useNavigate();
 	const { items, updateQuantity, removeItem, currencyBreakdown } = useCart();
 	const { cartItemsWithStock, hasStockIssues, isCheckoutBlocked } = useCartItems({
 		enableStockValidation: true,
@@ -80,18 +77,23 @@ function ReviewStepComponent({ total, isLoading, onProceed }: ReviewStepProps) {
 				itemsLength={items.length}
 				showMultiPaymentWarning={true}
 			/>
-			<div className="flex justify-between">
-				<Button variant="outline" onClick={() => navigate({ to: '/cart' })} disabled={isLoading}>
+			<div className="flex justify-end">
+				{/* <Button variant="link" onClick={() => navigate({ to: '/cart' })} disabled={isLoading}>
 					Back to Cart
-				</Button>
-				<Button onClick={onProceed} disabled={isLoading || items.length === 0 || isCheckoutBlocked}>
+				</Button> */}
+				<button
+					type="button"
+					className="px-5 py-2 bg-linear-95 from-[#3280D4] from-15% to-[#8EC4FF] to-151% rounded-full text-white hover:text-white/70 transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed font-mono flex items-center gap-2"
+					onClick={onProceed}
+					disabled={isLoading || items.length === 0 || isCheckoutBlocked}
+				>
 					{isLoading ? <Spinner /> : null}
 					{isCheckoutBlocked
 						? 'Cannot Proceed'
 						: brandConfig.features.enableShipping
 							? 'Proceed to Shipping'
 							: 'Proceed to Payment'}
-				</Button>
+				</button>
 			</div>
 		</div>
 	);

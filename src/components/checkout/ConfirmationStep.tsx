@@ -1,13 +1,8 @@
 import { IconCheck } from '@tabler/icons-react';
-import { useNavigate } from '@tanstack/react-router';
 import { memo } from 'react';
 
 // Components
 import { Button } from '@/components/ui/button';
-
-// Config
-import { brandConfig } from '@/config/brand';
-
 // Lib
 import { formatPriceSyncById } from '@/lib/unified-formatter';
 
@@ -18,18 +13,13 @@ interface ConfirmationStepProps {
 }
 
 function ConfirmationStepComponent({ createdOrders, error, onRetry }: ConfirmationStepProps) {
-	const navigate = useNavigate();
 	const hasOrders = createdOrders.length > 0;
-	const productsPath = brandConfig.features.disableProductsPage ? '/' : '/products';
-	const continueLabel = productsPath === '/products' ? 'Continue Shopping' : 'Back to Home';
 
 	return (
 		<div className="space-y-6 text-center">
 			<div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
 				<IconCheck className="w-8 h-8 text-green-600" />
 			</div>
-
-			<h2 className="text-2xl font-bold">Order Confirmation</h2>
 
 			{error ? (
 				<div className="space-y-4">
@@ -50,37 +40,68 @@ function ConfirmationStepComponent({ createdOrders, error, onRetry }: Confirmati
 							<h3 className="font-semibold">Order Details</h3>
 							{createdOrders.map(order => (
 								<div key={order.id} className="p-4 bg-gray-50 rounded-lg space-y-3">
-									<div className="flex items-start justify-between gap-4">
-										<div>
-											<p className="text-sm text-gray-500">Order ID</p>
-											<p className="font-mono text-sm break-all">{order.id}</p>
-										</div>
-										<Button
-											variant="outline"
-											onClick={() => navigate({ to: '/order-confirmation/$orderId', params: { orderId: order.id } })}
-										>
-											View Details
-										</Button>
-									</div>
 									<div className="space-y-2 text-sm">
 										<div className="flex justify-between">
-											<span>Total Amount:</span>
-											<span className="font-semibold">
-												{formatPriceSyncById(order.total_amount, order.token_id, {
-													compact: false,
-													supportedToken: order.supported_tokens,
-												})}
-											</span>
-										</div>
-										<div className="flex justify-between">
 											<span>Tx Hash:</span>
-											<span className="font-mono text-xs break-all">{order.cardano_tx_hash || 'Not available'}</span>
+											{order.cardano_tx_hash ? (
+												<a
+													href={`${import.meta.env.VITE_EXPLORER_URL}/tx/${order.cardano_tx_hash}`}
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													{order.cardano_tx_hash}
+												</a>
+											) : (
+												<span className="font-mono text-xs break-all">Not available</span>
+											)}
 										</div>
 										<div className="flex justify-between">
 											<span>Status:</span>
 											<span className="text-green-600 font-medium">Paid</span>
 										</div>
 									</div>
+
+									{order.order_items && order.order_items.length > 0 && (
+										<div className="space-y-3">
+											<h4 className="text-sm font-semibold">Items</h4>
+											<div className="space-y-3">
+												{order.order_items.map(item => {
+													const primaryImage = item.products?.product_images?.[0]?.image_url;
+
+													return (
+														<div key={item.id} className="flex items-center gap-3 rounded-lg bg-white p-3">
+															<div className="h-14 w-14 shrink-0 overflow-hidden rounded-md bg-gray-800">
+																{primaryImage ? (
+																	<img
+																		src={primaryImage}
+																		alt={item.products?.name ?? 'Product image'}
+																		className="h-full w-full object-cover"
+																	/>
+																) : (
+																	<div className="flex h-full w-full items-center justify-center">
+																		<span className="text-xs text-gray-400">No image</span>
+																	</div>
+																)}
+															</div>
+
+															<div className="min-w-0 flex-1">
+																<p className="text-sm font-medium text-gray-900 truncate">
+																	{item.products?.name ?? 'Item'}
+																</p>
+																<p className="text-xs text-gray-500">Qty: {item.quantity}</p>
+															</div>
+
+															<div className="text-right text-sm font-medium text-gray-700">
+																{formatPriceSyncById(item.price * item.quantity, item.token_id ?? order.token_id, {
+																	supportedToken: order.supported_tokens ?? item.supported_tokens ?? undefined,
+																})}
+															</div>
+														</div>
+													);
+												})}
+											</div>
+										</div>
+									)}
 								</div>
 							))}
 						</div>
@@ -92,21 +113,6 @@ function ConfirmationStepComponent({ createdOrders, error, onRetry }: Confirmati
 							<p className="text-sm text-gray-600">We could not load your order details. Please try again.</p>
 						</div>
 					)}
-
-					<div className="p-4 bg-blue-50 border border-blue-200 rounded-lg text-left">
-						<h3 className="font-semibold mb-2">What's Next?</h3>
-						<ul className="text-sm text-gray-700 space-y-1">
-							<li>• You'll receive a confirmation email shortly</li>
-							<li>• We'll process your order within 1-2 business days</li>
-							<li>• You'll receive tracking information once shipped</li>
-						</ul>
-					</div>
-
-					<div className="flex gap-4">
-						<Button onClick={() => navigate({ to: productsPath })} className="flex-1">
-							{continueLabel}
-						</Button>
-					</div>
 				</div>
 			)}
 		</div>

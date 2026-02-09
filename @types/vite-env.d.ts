@@ -2,6 +2,7 @@ declare interface ImportMetaEnv {
 	// Supabase
 	readonly VITE_SUPABASE_URL?: string;
 	readonly VITE_SUPABASE_ANON_KEY?: string;
+	readonly VITE_EXPLORER_URL?: string;
 
 	// API URL
 	readonly VITE_API_URL?: string;

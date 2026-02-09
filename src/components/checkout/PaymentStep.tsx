@@ -32,6 +32,7 @@ interface PaymentStepProps {
 	isLoading: boolean;
 	availableWallets: string[];
 	onWalletConnect: (walletName: string) => void;
+	onWalletDisconnect: () => void;
 	onPayment: () => void;
 	onBack: () => void;
 	error?: string | null;
@@ -71,6 +72,7 @@ function PaymentStepComponent({
 	isLoading,
 	availableWallets,
 	onWalletConnect,
+	onWalletDisconnect,
 	onPayment,
 	onBack,
 	error,
@@ -98,13 +100,24 @@ function PaymentStepComponent({
 
 			{/* Step 1: Wallet Connection */}
 			<div className="bg-white border rounded-lg p-6">
-				<h3 className="font-semibold mb-4">Step 1: Connect Your Wallet</h3>
+				<h3 className="font-semibold mb-4">Connect Your Wallet</h3>
 				<div className="space-y-4">
 					{isConnected ? (
 						<div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-							<div className="flex items-center space-x-2">
-								<IconCheck className="w-5 h-5 text-green-600" />
-								<span className="text-green-800 font-medium">Wallet Connected</span>
+							<div className="flex items-center justify-between gap-2">
+								<div className="flex items-center space-x-2">
+									<IconCheck className="w-5 h-5 text-green-600" />
+									<span className="text-green-800 font-medium">Wallet Connected</span>
+								</div>
+								<Button
+									variant="link"
+									size="sm"
+									onClick={onWalletDisconnect}
+									disabled={isLoading}
+									className="text-green-700"
+								>
+									Change wallet
+								</Button>
 							</div>
 						</div>
 					) : (
@@ -146,7 +159,7 @@ function PaymentStepComponent({
 			{isConnected && (
 				<>
 					<div className="bg-white border rounded-lg p-6">
-						<h3 className="font-semibold mb-4">Step 2: Payment Details</h3>
+						<h3 className="font-semibold mb-4">Payment Details</h3>
 
 						{hasMultiplePayments && !hasStartedPayments && (
 							<div className="mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
@@ -168,18 +181,18 @@ function PaymentStepComponent({
 								Object.entries(currencyBreakdown).map(([currencyKey, data]) => {
 									const paymentStatus = paymentStatuses.find(ps => ps.currencyKey === currencyKey);
 									const status = paymentStatus?.status || 'pending';
-									const isAda = data.currencyType === 'ADA';
+									// const isAda = data.currencyType === 'ADA';
 
 									return (
 										<div key={currencyKey} className={`p-4 border rounded-lg ${getStatusColor(status)}`}>
 											<div className="flex items-start justify-between">
 												<div className="flex-1">
-													<div className="flex items-center gap-2">
+													{/* <div className="flex items-center gap-2">
 														{getStatusIcon(status)}
 														<div className={`font-semibold ${isAda ? 'text-blue-600' : 'text-purple-600'}`}>
 															{isAda ? 'ADA Payment' : `${data.currencySymbol} Token Payment`}
 														</div>
-													</div>
+													</div> */}
 													<div className="text-lg font-bold mt-2">
 														{formatPriceSync(data.subtotal, data.policyId, data.assetName, {
 															decimals: data.currencyDecimals,
@@ -200,7 +213,8 @@ function PaymentStepComponent({
 													)}
 												</div>
 
-												<div className="text-right">
+												<div className="text-right flex gap-1 items-center justify-center">
+													{getStatusIcon(status)}
 													{status === 'completed' && (
 														<span className="text-sm font-medium text-green-600">Completed</span>
 													)}
@@ -225,8 +239,8 @@ function PaymentStepComponent({
 									<p className="font-medium text-blue-800">Ready to Pay</p>
 									<p className="text-sm text-blue-700">
 										{hasMultiplePayments
-											? 'Click "Start Payments" to begin. You will need to approve each transaction in your wallet (60 seconds per transaction).'
-											: 'Click "Pay Now" to complete your payment. You have 60 seconds to approve the transaction in your wallet.'}
+											? 'Click "Confirm Payment" to begin. You will need to approve each transaction in your wallet.'
+											: 'Click "Confirm Payment" to complete your payment. You need to approve the transaction in your wallet.'}
 									</p>
 								</div>
 							</div>
@@ -235,15 +249,20 @@ function PaymentStepComponent({
 				</>
 			)}
 
-			<div className="flex justify-between">
-				<Button variant="outline" onClick={onBack} disabled={isLoading}>
+			<div className="flex justify-between items-center">
+				<Button variant="link" onClick={onBack} disabled={isLoading}>
 					{brandConfig.features.enableShipping ? 'Back to Shipping' : 'Back to Review'}
 				</Button>
 				{isConnected && !hasStartedPayments && (
-					<Button onClick={onPayment} disabled={isLoading}>
+					<button
+						type="button"
+						className="px-5 py-2 bg-linear-95 from-[#3280D4] from-15% to-[#8EC4FF] to-151% rounded-full text-white hover:text-white/70 transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed font-mono flex items-center gap-2"
+						onClick={onPayment}
+						disabled={isLoading}
+					>
 						{isLoading ? <Spinner /> : null}
-						Start Payments
-					</Button>
+						Confirm Payment
+					</button>
 				)}
 			</div>
 		</div>

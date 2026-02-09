@@ -11,7 +11,7 @@ export interface ProductCardProps {
 	product: Database.Product;
 	variant?: 'simple' | 'detailed';
 	showAddToCart?: boolean;
-	onAddToCart?: (product: Database.Product) => void;
+	onAddToCart?: (product: Database.Product) => void | Promise<void>;
 	itemsInCart?: number;
 	simpleAction?: 'link' | 'select';
 }
@@ -27,7 +27,7 @@ export function ProductCard({
 	const handleAddToCart = (e: React.MouseEvent) => {
 		e.preventDefault();
 		e.stopPropagation();
-		onAddToCart?.(product);
+		void onAddToCart?.(product);
 	};
 
 	const priceString = formatPriceSyncById(product.price, product.token_id, {
@@ -49,7 +49,7 @@ export function ProductCard({
 	const cardContent = (
 		<div className="border rounded-3xl p-6 hover:shadow-lg transition-shadow duration-300 bg-white/12 border-white/25">
 			{/* Product Image */}
-			<div className="w-full h-48 bg-gray-100 rounded-3xl mb-8 flex items-center justify-center group-hover:bg-gray-50 transition-colors overflow-hidden">
+			<div className="w-full h-66 bg-gray-100 rounded-3xl mb-8 flex items-center justify-center group-hover:bg-gray-50 transition-colors overflow-hidden">
 				{productImage.startsWith('http') ? (
 					<img
 						src={productImage}
@@ -65,8 +65,8 @@ export function ProductCard({
 
 			{/* Product Info */}
 			<h3 className="font-semibold text-2xl mb-2 text-white transition-colors">{product.name}</h3>
-
-			{product.description && <p className="text-white/80 mb-5 line-clamp-2">{product.description}</p>}
+			{/* 
+			{product.description && <p className="text-white/80 mb-5 line-clamp-2">{product.description}</p>} */}
 
 			{variant === 'detailed' && (
 				<>

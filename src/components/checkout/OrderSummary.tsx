@@ -45,15 +45,15 @@ export function OrderSummary({
 				{/* Currency Breakdown */}
 				{currencyBreakdown && Object.keys(currencyBreakdown).length > 0 ? (
 					<div className="space-y-4 mb-4">
-						<h4 className="text-sm font-medium text-gray-700">Payment Details by Currency:</h4>
+						{/* <h4 className="text-sm font-medium text-gray-700">Payment Details by Currency:</h4> */}
 						{Object.entries(currencyBreakdown).map(([currencyKey, data]) => {
-							const isAda = data.currencyType === 'ADA';
+							// const isAda = data.currencyType === 'ADA';
 
 							return (
 								<div key={currencyKey} className="mb-4 p-4 border border-gray-200 rounded-lg">
-									<div className={`font-semibold ${isAda ? 'text-blue-600' : 'text-purple-600'}`}>
+									{/* <div className={`font-semibold ${isAda ? 'text-blue-600' : 'text-purple-600'}`}>
 										Cardano Payment ({isAda ? '₳' : data.currencySymbol})
-									</div>
+									</div> */}
 									<div className="text-lg font-bold mt-2">
 										{formatPriceSync(data.subtotal, data.policyId, data.assetName, { decimals: data.currencyDecimals })}
 									</div>

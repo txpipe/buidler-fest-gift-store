@@ -96,7 +96,7 @@ function ProductDetail() {
 	const quantityId = useId();
 	const { productId } = Route.useParams();
 	const { data: product, isLoading, error } = useProduct(productId);
-	const { addItem, getItemQuantity, updateProductStock } = useCart();
+	const { replaceWithItem, getItemQuantity, updateProductStock } = useCart();
 	const [quantity, setQuantity] = useState(1);
 	const enableShipping = brandConfig.features.enableShipping;
 	const disableCartFlow = brandConfig.features.disableCartFlow;
@@ -163,8 +163,8 @@ function ProductDetail() {
 		);
 	}
 
-	const handleAddToCart = () => {
-		addItem(product.id, quantity, product);
+	const handleAddToCart = async () => {
+		await replaceWithItem(product.id, quantity, product);
 		if (disableCartFlow) {
 			navigate({ to: '/checkout' });
 		}

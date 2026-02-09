@@ -8,7 +8,6 @@ import { createRootRouteWithContext, HeadContent, Scripts } from '@tanstack/reac
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 
 // Components
-import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import { CartProvider } from '@/contexts/CartContext';
 
@@ -70,8 +69,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<body className="flex flex-col min-h-screen">
 				<CartProvider>
 					<Header />
-					<main className="flex-1">{children}</main>
-					<Footer />
+					<main className="flex-1 flex flex-col">{children}</main>
 					<TanStackDevtools
 						config={{
 							position: 'bottom-right',

@@ -16,7 +16,7 @@ function Checkout() {
 	// Show loading skeleton while cart is loading
 	if (!isLoaded) {
 		return (
-			<div className="bg-gray-50 min-h-screen">
+			<div className="bg-gray-50 flex-1">
 				<title>Loading Checkout...</title>
 				<meta name="description" content="Loading checkout" />
 				<div className="container mx-auto px-4 py-8">
@@ -27,7 +27,7 @@ function Checkout() {
 	}
 
 	return (
-		<div className="bg-gray-50 min-h-screen">
+		<div className="bg-gray-50 flex-1">
 			<title>Checkout - Complete Your Order</title>
 			<meta name="description" content="Complete your purchase with our secure checkout process" />
 

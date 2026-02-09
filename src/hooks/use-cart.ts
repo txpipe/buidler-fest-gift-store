@@ -9,6 +9,7 @@ import type { CartItem } from '@/lib/cart-storage';
 export interface CartHook {
 	items: CartItem[];
 	addItem: (productId: string, quantity: number, product: Database.Product) => void;
+	replaceWithItem: (productId: string, quantity: number, product: Database.Product) => Promise<void>;
 	removeItem: (productId: string) => void;
 	updateQuantity: (productId: string, quantity: number) => void;
 	updateProductStock: (productId: string, newStock: number) => void;
@@ -37,6 +38,7 @@ export function useCart(): CartHook {
 		updateProductStock: contextUpdateProductStock,
 		clear: contextClear,
 		refresh: contextRefresh,
+		replaceWithItem: contextReplaceWithItem,
 		isLoaded,
 	} = useCartContext();
 
@@ -80,6 +82,32 @@ export function useCart(): CartHook {
 			contextAddItem(productId, quantity, customProduct);
 		},
 		[validateStock, contextAddItem],
+	);
+
+	const replaceWithItem = useCallback(
+		async (productId: string, quantity: number, product: Database.Product) => {
+			if (quantity <= 0) {
+				throw new Error('Quantity must be greater than 0');
+			}
+
+			const customProduct: CartItem['product'] = {
+				id: product.id,
+				name: product.name,
+				description: product.description,
+				price: product.price,
+				token_id: product.token_id,
+				stock: product.stock,
+				image_url: product.product_images?.[0]?.image_url,
+				supported_tokens: product.supported_tokens,
+			};
+
+			if (quantity > customProduct.stock) {
+				throw new Error(`Insufficient stock. Only ${customProduct.stock} available.`);
+			}
+
+			await contextReplaceWithItem(productId, quantity, customProduct);
+		},
+		[contextReplaceWithItem],
 	);
 
 	const removeItem = useCallback(
@@ -172,6 +200,7 @@ export function useCart(): CartHook {
 	return {
 		items: cartMetrics.items,
 		addItem,
+		replaceWithItem,
 		removeItem,
 		updateQuantity,
 		updateProductStock,

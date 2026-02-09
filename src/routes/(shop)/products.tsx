@@ -21,12 +21,12 @@ export const Route = createFileRoute('/(shop)/products')({
 
 function ProductsPage() {
 	const { data: products, isLoading, error } = useProducts();
-	const { addItem, getItemQuantity } = useCart();
+	const { replaceWithItem, getItemQuantity } = useCart();
 	const disableCartFlow = brandConfig.features.disableCartFlow;
 	const navigate = useNavigate();
 
-	const handleAddToCart = (product: Database.Product) => {
-		addItem(product.id, 1, product);
+	const handleAddToCart = async (product: Database.Product) => {
+		await replaceWithItem(product.id, 1, product);
 		if (disableCartFlow) {
 			navigate({ to: '/checkout' });
 		}

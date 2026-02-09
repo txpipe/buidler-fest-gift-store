@@ -42,7 +42,7 @@ export function CheckoutFlow({ onComplete }: CheckoutFlowProps) {
 	const productsPath = brandConfig.features.disableProductsPage ? '/' : '/products';
 
 	const { items, total, clear, isEmpty, isLoaded: cartLoaded, currencyBreakdown } = useCart();
-	const { wallet, isConnected, connect, availableWallets } = useWallet();
+	const { wallet, isConnected, connect, disconnect, availableWallets } = useWallet();
 	const createOrdersMutation = useCreateOrders();
 	const updateOrderStatusMutation = useUpdateOrderStatus();
 	const validateCartStockMutation = useValidateBulkStock();
@@ -179,6 +179,13 @@ export function CheckoutFlow({ onComplete }: CheckoutFlowProps) {
 			console.error('Failed to connect wallet:', error);
 			setPaymentError('Failed to connect wallet. Please try again.');
 		}
+	};
+
+	const handleWalletDisconnect = () => {
+		disconnect();
+		setPaymentStatuses([]);
+		setPaymentError(null);
+		setCreatedOrders([]);
 	};
 
 	const handlePayment = async () => {
@@ -369,6 +376,7 @@ export function CheckoutFlow({ onComplete }: CheckoutFlowProps) {
 						isConnected={isConnected}
 						isLoading={isLoading}
 						onWalletConnect={handleWalletConnect}
+						onWalletDisconnect={handleWalletDisconnect}
 						onPayment={handlePayment}
 						onBack={() => setStep(enableShipping ? 'shipping' : 'review')}
 						error={paymentError}
