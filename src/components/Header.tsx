@@ -17,7 +17,7 @@ export default function Header() {
 	const { disableProductsPage, disableCartFlow } = brandConfig.features;
 
 	return (
-		<header className="sticky top-0 z-50 bg-white text-[#004289] shadow-xl border-b border-blue-500/30">
+		<header className="sticky top-0 z-50 bg-white text-brand-primary shadow-xl border-b border-blue-500/30">
 			<div className="container mx-auto px-4">
 				<div className="flex items-center justify-between h-16">
 					{/* Left: Logo + Nav */}
@@ -25,11 +25,11 @@ export default function Header() {
 						{/* Logo/Brand */}
 						<Link
 							to="/"
-							className="group flex items-center gap-2 lg:gap-3 text-lg lg:text-xl font-semibold text-[#004289] hover:opacity-20  transition-all duration-200"
+							className="group flex items-center gap-2 lg:gap-3 text-lg lg:text-xl font-semibold text-brand-primary hover:opacity-20  transition-all duration-200"
 						>
 							<div className="flex gap-3">
 								<span className="font-abel tracking-widest">{brandConfig.business.name.toUpperCase()} #3</span>
-								<span className="w-0.5 self-stretch bg-[#004289]"></span>
+								<span className="w-0.5 self-stretch bg-brand-primary"></span>
 								<span>Gift store</span>
 							</div>
 						</Link>
@@ -61,7 +61,7 @@ export default function Header() {
 							className="group relative p-2 hover:bg-blue-800/30 rounded-lg transition-all duration-200"
 							aria-label={`Shopping cart with ${itemCount} items`}
 						>
-							<IconShoppingCart size={20} className="text-[#004289] transition-colors duration-200" />
+							<IconShoppingCart size={20} className="text-brand-primary transition-colors duration-200" />
 							{/* Animated Badge */}
 							{itemCount > 0 && (
 								<span className="absolute -top-1 -right-1 bg-linear-to-r from-red-500 to-red-600 text-white text-xs font-bold rounded-full min-w-5 h-5 flex items-center justify-center px-1.5 shadow-md group-hover:shadow-lg transition-all duration-200">

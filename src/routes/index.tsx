@@ -30,7 +30,12 @@ function HeroComponent() {
 		<section>
 			<div className="container mx-auto text-center">
 				<img src="/buidler-shop.svg" alt={`${brandConfig.business.name} logo`} className="mx-auto w-67.5 h-62.75" />
-				<p className="text-lg text-white mt-6">Lorem Ipsum Lorem Ipsum</p>
+				<p className="text-base text-white mt-6">
+					Select the <span className="text-brand-accent">gift</span> you'd like to redeem using your{' '}
+					<span className="text-brand-accent">tokens.</span>
+					<br />
+					Once selected, your item will be reserved and available for pickup at the event.
+				</p>
 			</div>
 		</section>
 	);
