@@ -58,7 +58,7 @@ export function OrderSummary({
 										{formatPriceSync(data.subtotal, data.policyId, data.assetName, { decimals: data.currencyDecimals })}
 									</div>
 									<div className="text-sm text-gray-600">
-										{data.itemCount} {data.itemCount === 1 ? 'item' : 'items'} in this currency
+										{data.itemCount} {data.itemCount === 1 ? 'item' : 'items'}
 									</div>
 								</div>
 							);

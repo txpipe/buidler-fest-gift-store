@@ -27,15 +27,16 @@ export const Route = createFileRoute('/')({
 
 function HeroComponent() {
 	return (
-		<section className="mt-20 mb-24">
-			<div className="container mx-auto flex flex-col sm:flex-row items-center justify-center gap-11.25">
-				<img src="/buidler-fest-horizontal.svg" alt={`${brandConfig.business.name} logo`} className="w-90.75 h-32.5" />
-				<div className="hidden sm:block w-px self-stretch bg-white my-0.5" />
-				<p className="text-base text-white mt-6 max-w-103.5">
-					Select the <span className="text-brand-accent">gift</span> you'd like to redeem using your{' '}
-					<span className="text-brand-accent">tokens.</span>
-					<br />
-					Once selected, your item will be reserved and available for pickup at the event.
+		<section className="mb-8 sm:mb-16">
+			<div className="container mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-11.25 px-6 sm:px-0">
+				<img src="/buidler-fest-horizontal.svg" alt={`${brandConfig.business.name} logo`} className="w-full max-w-90.75" />
+				<div className="w-full h-px sm:h-auto sm:w-px self-stretch bg-white/50 px- sm:my-1" />
+				<p className="text-base text-white">
+					<ul className="list-disc">
+						<li>Register for the event and receive <span className="text-brand-accent">BuidlerCoins</span></li>
+						<li>Pick a gift and exchange your coins for it.</li>
+						<li>Claim your physical gift at the event.</li>
+					</ul>
 				</p>
 			</div>
 		</section>
@@ -66,10 +67,10 @@ function HomePage() {
 
 	if (isLoading) {
 		return (
-			<div className="min-h-screen bg-[#012347] py-14">
+			<div className="flex-1 bg-[#012347]">
 				<HeroComponent />
-				<section className="mt-14 mb-3.5">
-					<div className="container mx-auto px-4">
+				<section className="">
+					<div className="container mx-auto px-6 sm:px-0">
 						<div className="text-center text-white">Loading products...</div>
 					</div>
 				</section>
@@ -79,10 +80,10 @@ function HomePage() {
 
 	if (error) {
 		return (
-			<div className="min-h-screen bg-[#012347] py-14">
+			<div className="flex-1 bg-[#012347]">
 				<HeroComponent />
-				<section className="mt-14 mb-3.5">
-					<div className="container mx-auto px-4">
+				<section className="">
+					<div className="container mx-auto px-6 sm:px-0">
 						<div className="text-center text-red-500">Failed to load products</div>
 					</div>
 				</section>
@@ -91,13 +92,13 @@ function HomePage() {
 	}
 
 	return (
-		<div className="flex-1 bg-[#012347] pt-14 pb-20">
+		<div className="py-8 flex-1 bg-[#012347] flex flex-col justify-center">
 			{/* Hero Section */}
 			<HeroComponent />
 
 			{/* Featured Products Section */}
 			<section>
-				<div className="container mx-auto px-4">
+				<div className="container mx-auto px-6 sm:px-0">
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 						{featuredProducts.map(product => (
 							<ProductCard

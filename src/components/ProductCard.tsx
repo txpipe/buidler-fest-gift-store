@@ -49,7 +49,7 @@ export function ProductCard({
 	const cardContent = (
 		<div className="border rounded-3xl p-6 hover:shadow-lg transition-shadow duration-300 bg-white/12 border-white/25">
 			{/* Product Image */}
-			<div className="w-full h-66 bg-gray-100 rounded-3xl mb-8 flex items-center justify-center group-hover:bg-gray-50 transition-colors overflow-hidden">
+			<div className="w-full aspect-[1.1] bg-gray-100 rounded-3xl mb-8 flex items-center justify-center group-hover:bg-gray-50 transition-colors overflow-hidden">
 				{productImage.startsWith('http') ? (
 					<img
 						src={productImage}

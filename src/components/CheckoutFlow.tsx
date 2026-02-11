@@ -305,6 +305,94 @@ export function CheckoutFlow({ onComplete }: CheckoutFlowProps) {
 		setStep('review');
 	};
 
+	const handleRetryFailedPayments = async () => {
+		if (!wallet) {
+			setPaymentError('Please connect your wallet to continue.');
+			return;
+		}
+
+		// Find orders that failed
+		const failedStatuses = paymentStatuses.filter(ps => ps.status === 'failed');
+		if (failedStatuses.length === 0) return;
+
+		const failedOrders = createdOrders.filter(order => {
+			const currencyKey = order.token_id ?? 'ADA';
+			return failedStatuses.some(fs => fs.currencyKey === currencyKey);
+		});
+
+		if (failedOrders.length === 0) return;
+
+		setPaymentError(null);
+
+		// Reset failed statuses to pending
+		setPaymentStatuses(prev =>
+			prev.map(ps => (ps.status === 'failed' ? { ...ps, status: 'pending' as const, error: undefined, txHash: undefined } : ps)),
+		);
+
+		try {
+			const paymentsInfo: OrderPaymentInfo[] = failedOrders.map(order => ({
+				id: order.id,
+				amount: order.total_amount,
+				policyId: order.supported_tokens?.policy_id,
+				assetName: order.supported_tokens?.asset_name,
+			}));
+
+			const result = await processMultiCurrencyPayments(wallet, paymentsInfo, (orderId, status, paymentResult) => {
+				setPaymentStatuses(prev =>
+					prev.map(ps => {
+						const order = failedOrders.find(o => o.id === orderId);
+						if (!order) return ps;
+
+						const currencyKey = order.token_id ?? 'ADA';
+						if (ps.currencyKey !== currencyKey) return ps;
+
+						return {
+							...ps,
+							status: status as CurrencyPaymentStatus['status'],
+							txHash: paymentResult?.txHash,
+							error: paymentResult?.error,
+						};
+					}),
+				);
+			});
+
+			// Check if ALL payments (including previously completed) are now done
+			const allNowCompleted = result.failedOrders.length === 0;
+
+			// Update completed orders
+			for (const completed of result.completedOrders) {
+				const updatedOrder = await updateOrderStatusMutation.mutateAsync({
+					orderId: completed.orderId,
+					status: 'paid',
+					txHash: completed.txHash,
+				});
+				updateOrderInState(updatedOrder);
+			}
+
+			if (allNowCompleted) {
+				setStep('confirmation');
+				onComplete?.(createdOrders[0].id);
+			} else {
+				// Update failed orders
+				for (const failed of result.failedOrders) {
+					const updatedOrder = await updateOrderStatusMutation.mutateAsync({
+						orderId: failed.orderId,
+						status: 'payment_failed',
+						error: failed.error,
+					});
+					updateOrderInState(updatedOrder);
+				}
+
+				setPaymentError(
+					`Retry partially completed. ${result.completedOrders.length} of ${failedOrders.length} payments succeeded. Failed: ${result.failedOrders[0]?.error || 'Unknown error'}`,
+				);
+			}
+		} catch (error) {
+			console.error('Retry payment processing failed:', error);
+			setPaymentError('Retry payment processing failed. Please try again.');
+		}
+	};
+
 	const isLoading = createOrdersMutation.isPending || updateOrderStatusMutation.isPending;
 
 	// Show full page skeleton while cart is loading
@@ -378,6 +466,7 @@ export function CheckoutFlow({ onComplete }: CheckoutFlowProps) {
 						onWalletConnect={handleWalletConnect}
 						onWalletDisconnect={handleWalletDisconnect}
 						onPayment={handlePayment}
+						onRetryFailed={handleRetryFailedPayments}
 						onBack={() => setStep(enableShipping ? 'shipping' : 'review')}
 						error={paymentError}
 						paymentStatuses={paymentStatuses}

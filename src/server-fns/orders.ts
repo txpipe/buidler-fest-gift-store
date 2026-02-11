@@ -159,6 +159,8 @@ async function updateOrderStatusWithServiceRole(
 
 	if (error) {
 		updateData.payment_error = error;
+	} else if (status === 'paid') {
+		updateData.payment_error = null;
 	}
 
 	const { error: updateError } = await supabase.from('orders').update(updateData).eq('id', orderId);

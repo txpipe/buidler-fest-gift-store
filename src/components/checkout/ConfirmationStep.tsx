@@ -16,7 +16,7 @@ function ConfirmationStepComponent({ createdOrders, error, onRetry }: Confirmati
 	const hasOrders = createdOrders.length > 0;
 
 	return (
-		<div className="space-y-6 text-center">
+		<div className="space-y-6 text-center mt-18">
 			<div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
 				<IconCheck className="w-8 h-8 text-green-600" />
 			</div>
@@ -33,11 +33,15 @@ function ConfirmationStepComponent({ createdOrders, error, onRetry }: Confirmati
 				</div>
 			) : (
 				<div className="space-y-4">
-					<p className="text-gray-600">Thank you for your order! Your payment has been processed successfully.</p>
+					<p className="text-gray-600">
+						Thank you for your order! Your payment has been processed successfully.
+						<br />
+						The on-chain tx serves as the receipt to claim your gift at the event.
+					</p>
 
 					{hasOrders && (
-						<div className="space-y-4 text-left">
-							<h3 className="font-semibold">Order Details</h3>
+						<div className="space-y-4 text-left border border-gray-200 rounded-xl bg-white shadow-sm p-5">
+							<h3 className="font-semibold text-lg">Confirmed Order</h3>
 							{createdOrders.map(order => (
 								<div key={order.id} className="p-4 bg-gray-50 rounded-lg space-y-3">
 									<div className="space-y-2 text-sm">
@@ -48,6 +52,7 @@ function ConfirmationStepComponent({ createdOrders, error, onRetry }: Confirmati
 													href={`${import.meta.env.VITE_EXPLORER_URL}/tx/${order.cardano_tx_hash}`}
 													target="_blank"
 													rel="noopener noreferrer"
+													className="font-mono text-xs text-brand-primary hover:text-brand-primary/80 underline underline-offset-2 break-all"
 												>
 													{order.cardano_tx_hash}
 												</a>
@@ -109,7 +114,7 @@ function ConfirmationStepComponent({ createdOrders, error, onRetry }: Confirmati
 
 					{!hasOrders && (
 						<div className="p-4 bg-gray-50 rounded-lg text-left">
-							<h3 className="font-semibold mb-3">Order Details</h3>
+							<h3 className="font-semibold mb-3">Confirmed Order</h3>
 							<p className="text-sm text-gray-600">We could not load your order details. Please try again.</p>
 						</div>
 					)}

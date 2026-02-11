@@ -158,7 +158,7 @@ function ShippingStepComponent({
 				</Button>
 				<Button onClick={onProceed} disabled={isLoading}>
 					{isLoading ? <Spinner /> : null}
-					Proceed to Payment
+					PROCEED TO PAYMENT
 				</Button>
 			</div>
 		</div>

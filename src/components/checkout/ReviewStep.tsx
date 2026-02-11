@@ -89,10 +89,10 @@ function ReviewStepComponent({ total, isLoading, onProceed }: ReviewStepProps) {
 				>
 					{isLoading ? <Spinner /> : null}
 					{isCheckoutBlocked
-						? 'Cannot Proceed'
+						? 'CANNOT PROCEED'
 						: brandConfig.features.enableShipping
-							? 'Proceed to Shipping'
-							: 'Proceed to Payment'}
+							? 'PROCEED TO SHIPPING'
+							: 'PROCEED TO PAYMENT'}
 				</button>
 			</div>
 		</div>

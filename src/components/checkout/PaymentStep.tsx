@@ -1,4 +1,4 @@
-import { IconAlertCircle, IconCheck, IconClock, IconCreditCard, IconLoader, IconX } from '@tabler/icons-react';
+import { IconAlertCircle, IconCheck, IconClock, IconCreditCard, IconLoader, IconRefresh, IconX } from '@tabler/icons-react';
 import { memo } from 'react';
 // Components
 import { Button } from '@/components/ui/button';
@@ -34,6 +34,7 @@ interface PaymentStepProps {
 	onWalletConnect: (walletName: string) => void;
 	onWalletDisconnect: () => void;
 	onPayment: () => void;
+	onRetryFailed: () => void;
 	onBack: () => void;
 	error?: string | null;
 	paymentStatuses?: CurrencyPaymentStatus[];
@@ -74,13 +75,15 @@ function PaymentStepComponent({
 	onWalletConnect,
 	onWalletDisconnect,
 	onPayment,
+	onRetryFailed,
 	onBack,
-	error,
 	paymentStatuses = [],
 }: PaymentStepProps) {
 	const { currencyBreakdown } = useCart();
 	const hasMultiplePayments = currencyBreakdown && Object.keys(currencyBreakdown).length > 1;
 	const hasStartedPayments = paymentStatuses.length > 0;
+	const hasFailedPayments = paymentStatuses.some(ps => ps.status === 'failed');
+	const isAllCompleted = paymentStatuses.length > 0 && paymentStatuses.every(ps => ps.status === 'completed');
 
 	return (
 		<div className="space-y-6">
@@ -88,15 +91,6 @@ function PaymentStepComponent({
 				<IconCreditCard className="w-6 h-6 text-blue-600" />
 				<h2 className="text-2xl font-bold">Payment</h2>
 			</div>
-
-			{error && (
-				<div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-					<div className="flex items-start space-x-2">
-						<IconAlertCircle className="w-5 h-5 text-red-600 mt-0.5" />
-						<p className="text-red-800">{error}</p>
-					</div>
-				</div>
-			)}
 
 			{/* Step 1: Wallet Connection */}
 			<div className="bg-white border rounded-lg p-6">
@@ -234,9 +228,8 @@ function PaymentStepComponent({
 					{!hasStartedPayments && (
 						<div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
 							<div className="flex items-start space-x-2">
-								<IconAlertCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+								<IconAlertCircle className="w-5 h-5 text-blue-600" />
 								<div>
-									<p className="font-medium text-blue-800">Ready to Pay</p>
 									<p className="text-sm text-blue-700">
 										{hasMultiplePayments
 											? 'Click "Confirm Payment" to begin. You will need to approve each transaction in your wallet.'
@@ -261,7 +254,18 @@ function PaymentStepComponent({
 						disabled={isLoading}
 					>
 						{isLoading ? <Spinner /> : null}
-						Confirm Payment
+						CONFIRM PAYMENT
+					</button>
+				)}
+			{isConnected && hasFailedPayments && !isAllCompleted && (
+					<button
+						type="button"
+						className="px-5 py-2 bg-linear-95 from-[#3280D4] from-15% to-[#8EC4FF] to-151% rounded-full text-white hover:text-white/70 transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed font-mono flex items-center gap-2"
+						onClick={onRetryFailed}
+						disabled={isLoading}
+					>
+						{isLoading ? <Spinner /> : <IconRefresh className="w-4 h-4" />}
+						RETRY FAILED PAYMENTS
 					</button>
 				)}
 			</div>
