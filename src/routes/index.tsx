@@ -67,7 +67,7 @@ function HomePage() {
 
 	if (isLoading) {
 		return (
-			<div className="flex-1 bg-[#012347]">
+			<div className="py-8 flex-1 bg-[#012347]">
 				<HeroComponent />
 				<section className="">
 					<div className="container mx-auto px-6 sm:px-0">
@@ -80,7 +80,7 @@ function HomePage() {
 
 	if (error) {
 		return (
-			<div className="flex-1 bg-[#012347]">
+			<div className="py-8 flex-1 bg-[#012347]">
 				<HeroComponent />
 				<section className="">
 					<div className="container mx-auto px-6 sm:px-0">
