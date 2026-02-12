@@ -29,11 +29,17 @@ function HeroComponent() {
 	return (
 		<section className="mb-8 sm:mb-16">
 			<div className="container mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-11.25 px-6 sm:px-0">
-				<img src="/buidler-fest-horizontal.svg" alt={`${brandConfig.business.name} logo`} className="w-full max-w-90.75" />
+				<img
+					src="/buidler-fest-horizontal.svg"
+					alt={`${brandConfig.business.name} logo`}
+					className="w-full max-w-90.75"
+				/>
 				<div className="w-full h-px sm:h-auto sm:w-px self-stretch bg-white/50 px- sm:my-1" />
 				<p className="text-base text-white">
 					<ul className="list-disc">
-						<li>Register for the event and receive <span className="text-brand-accent">BuidlerCoins</span></li>
+						<li>
+							Register for the event and receive <span className="text-brand-accent">BuidlerCoins</span>
+						</li>
 						<li>Pick a gift and exchange your coins for it.</li>
 						<li>Claim your physical gift at the event.</li>
 					</ul>

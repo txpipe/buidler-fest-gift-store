@@ -326,7 +326,9 @@ export function CheckoutFlow({ onComplete }: CheckoutFlowProps) {
 
 		// Reset failed statuses to pending
 		setPaymentStatuses(prev =>
-			prev.map(ps => (ps.status === 'failed' ? { ...ps, status: 'pending' as const, error: undefined, txHash: undefined } : ps)),
+			prev.map(ps =>
+				ps.status === 'failed' ? { ...ps, status: 'pending' as const, error: undefined, txHash: undefined } : ps,
+			),
 		);
 
 		try {

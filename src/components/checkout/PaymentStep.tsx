@@ -1,4 +1,12 @@
-import { IconAlertCircle, IconCheck, IconClock, IconCreditCard, IconLoader, IconRefresh, IconX } from '@tabler/icons-react';
+import {
+	IconAlertCircle,
+	IconCheck,
+	IconClock,
+	IconCreditCard,
+	IconLoader,
+	IconRefresh,
+	IconX,
+} from '@tabler/icons-react';
 import { memo } from 'react';
 // Components
 import { Button } from '@/components/ui/button';
@@ -257,7 +265,7 @@ function PaymentStepComponent({
 						CONFIRM PAYMENT
 					</button>
 				)}
-			{isConnected && hasFailedPayments && !isAllCompleted && (
+				{isConnected && hasFailedPayments && !isAllCompleted && (
 					<button
 						type="button"
 						className="px-5 py-2 bg-linear-95 from-[#3280D4] from-15% to-[#8EC4FF] to-151% rounded-full text-white hover:text-white/70 transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed font-mono flex items-center gap-2"
