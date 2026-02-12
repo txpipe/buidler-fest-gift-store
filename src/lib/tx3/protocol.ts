@@ -2,10 +2,10 @@
 
 import { type ArgValue, type ClientOptions, type ResolveResponse, type SubmitParams, TRPClient } from 'tx3-sdk/trp';
 
-export const DEFAULT_TRP_ENDPOINT = 'https://cardano-preview.trp-m1.demeter.run';
+export const DEFAULT_TRP_ENDPOINT = 'https://cardano-mainnet.trp-m1.demeter.run';
 
 export const DEFAULT_HEADERS = {
-	'dmtr-api-key': 'trp1ffyf88ugcyg6j6n3yuh',
+	'dmtr-api-key': 'trp1lrnhzcax5064cgxsaup',
 };
 
 export const DEFAULT_ENV_ARGS = {};
