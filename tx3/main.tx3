@@ -8,7 +8,7 @@ tx pay_with_ada(
 ) {
     input source {
         from: Buyer,
-        min_amount: Ada(quantity) + fees,
+        min_amount: Ada(quantity) + min_utxo(change) + fees,
     }
     
     output payment {
@@ -16,7 +16,7 @@ tx pay_with_ada(
         amount: Ada(quantity),
     }
 
-    output {
+    output change {
         to: Buyer,
         amount: source - Ada(quantity) - fees,
     }
@@ -37,7 +37,7 @@ tx pay_with_tokens(
 
     input* source {
         from: Buyer,
-        min_amount: fees + tokens + min_utxo(payment),
+        min_amount: fees + tokens + min_utxo(payment) + min_utxo(change),
     }
 
     output payment {
@@ -45,7 +45,7 @@ tx pay_with_tokens(
         amount: tokens + min_utxo(payment),
     }
 
-    output {
+    output change {
         to: Buyer,
         amount: source - tokens - fees - min_utxo(payment),
     }
